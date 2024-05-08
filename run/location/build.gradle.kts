@@ -39,4 +39,7 @@ dependencies {
     implementation(libs.google.android.gms.play.services.location)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
+
+    implementation(projects.core.domain)
+    implementation(projects.run.domain)
 }
