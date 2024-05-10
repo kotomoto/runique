@@ -148,6 +148,8 @@ mapsplatform-secrets-plugin = { id = "com.google.android.libraries.mapsplatform.
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
 
+runique-android-application = { id = "runique.android.application", version = "unspecified"}
+
 #jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 #org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
 #android-application = { id = "com.android.application", version.ref = "agp" }
