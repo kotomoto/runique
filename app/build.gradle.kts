@@ -40,6 +40,8 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.timber)
 
+    implementation(libs.bundles.koin)
+
     api(libs.core)
 
     testImplementation(libs.junit)
