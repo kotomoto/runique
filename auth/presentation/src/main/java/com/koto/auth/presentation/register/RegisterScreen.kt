@@ -69,6 +69,7 @@ fun RegisterScreenRoot(
                     Toast.LENGTH_LONG
                 ).show()
             }
+
             RegisterEvent.RegistrationSuccess -> {
                 keyboardController?.hide()
                 Toast.makeText(
@@ -83,7 +84,15 @@ fun RegisterScreenRoot(
 
     RegisterScreen(
         state = viewModel.state,
-        onAction = viewModel::onAction,
+        onAction = { action ->
+            when (action) {
+                is RegisterAction.OnLoginClick -> {
+                    onSignInClick()
+                }
+
+                else -> viewModel.onAction(action)
+            }
+        },
     )
 }
 
@@ -109,7 +118,7 @@ private fun RegisterScreen(
                 withStyle(
                     style = SpanStyle(
                         fontFamily = Poppins,
-                        color = RuniqueGray,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 ) {
                     append(stringResource(id = R.string.already_have_an_account) + " ")
