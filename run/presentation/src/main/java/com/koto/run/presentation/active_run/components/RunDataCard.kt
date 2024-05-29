@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,6 +23,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.koto.core.presentation.designsystem.RuniqueTheme
 import com.koto.core.presentation.ui.formatted
+import com.koto.core.presentation.ui.toFormattedKm
+import com.koto.core.presentation.ui.toFormattedPace
 import com.koto.run.domain.RunData
 import com.koto.run.presentation.R
 import kotlin.time.Duration
@@ -51,7 +54,18 @@ fun RunDataCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceAround
         ) {
-
+            RunDataItem(
+                modifier = Modifier.defaultMinSize(minWidth = 75.dp),
+                title = stringResource(id = R.string.distance),
+                value = (runData.distanceMeters / 1000.0).toFormattedKm(),
+            )
+            RunDataItem(
+                modifier = Modifier.defaultMinSize(minWidth = 75.dp),
+                title = stringResource(id = R.string.pace),
+                value = elapsedTime.toFormattedPace(
+                    distanceKm = (runData.distanceMeters / 1000.0),
+                ),
+            )
         }
     }
 }
