@@ -33,6 +33,7 @@ import com.koto.core.presentation.designsystem.components.RuniqueScaffold
 import com.koto.core.presentation.designsystem.components.RuniqueToolbar
 import com.koto.run.presentation.R
 import com.koto.run.presentation.active_run.components.RunDataCard
+import com.koto.run.presentation.active_run.maps.TrackerMap
 import com.koto.run.presentation.util.hasLocationPermission
 import com.koto.run.presentation.util.hasNotificationPermission
 import com.koto.run.presentation.util.shouldShowLocationPermissionRationale
@@ -145,6 +146,13 @@ private fun ActiveRunScreen(
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.surface)
         ) {
+            TrackerMap(
+                modifier = Modifier.fillMaxSize(),
+                isRunFinished = state.isRunFinished,
+                currentLocation = state.currentLocation,
+                locations = state.runData.locations,
+                onSnapshot = {},
+            )
             RunDataCard(
                 modifier = Modifier
                     .padding(16.dp)
