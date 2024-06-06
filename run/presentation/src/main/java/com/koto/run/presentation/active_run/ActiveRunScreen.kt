@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.koto.core.presentation.designsystem.RuniqueTheme
 import com.koto.core.presentation.designsystem.StartIcon
 import com.koto.core.presentation.designsystem.StopIcon
+import com.koto.core.presentation.designsystem.components.RuniqueActionButton
 import com.koto.core.presentation.designsystem.components.RuniqueDialog
 import com.koto.core.presentation.designsystem.components.RuniqueFloatingActionButton
 import com.koto.core.presentation.designsystem.components.RuniqueOutlinedActionButton
@@ -162,6 +163,36 @@ private fun ActiveRunScreen(
                 runData = state.runData,
             )
         }
+    }
+
+    if (!state.shouldTrack && state.hasStartedRunning) {
+        RuniqueDialog(
+            title = stringResource(id = R.string.running_is_paused),
+            description = stringResource(id = R.string.resume_or_finish_run),
+            onDismiss = {
+                onAction(ActiveRunAction.OnResumeRunClick)
+            },
+            primaryButtion = {
+                RuniqueActionButton(
+                    modifier = Modifier.weight(1f),
+                    text = stringResource(id = R.string.resume),
+                    isLoading = false,
+                    onClick = {
+                        onAction(ActiveRunAction.OnResumeRunClick)
+                    },
+                )
+            },
+            secondaryButton = {
+                RuniqueOutlinedActionButton(
+                    modifier = Modifier.weight(1f),
+                    text = stringResource(id = R.string.finish),
+                    isLoading = state.isSavingRun,
+                    onClick = {
+                        onAction(ActiveRunAction.OnFinishRunClick)
+                    },
+                )
+            }
+        )
     }
 
     if (state.showLocationRationale || state.showNotificationRationale) {
