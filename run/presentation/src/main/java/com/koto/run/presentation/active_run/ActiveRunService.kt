@@ -4,6 +4,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
@@ -43,8 +44,15 @@ class ActiveRunService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        // todo
-        return super.onStartCommand(intent, flags, startId)
+        when(intent?.action) {
+            ACTION_START -> {
+                val activityClass = intent.getStringExtra(EXTRA_ACTIVITY_CLASS)
+                    ?: throw IllegalArgumentException("No activity class provided")
+                start(Class.forName(activityClass))
+            }
+            ACTION_STOP -> stop()
+        }
+        return START_STICKY
     }
 
     private fun start(activityClass: Class<*>) {
@@ -102,5 +110,23 @@ class ActiveRunService : Service() {
     companion object {
         var isServiceActive = false
         private const val CHANNEL_ID = "active_run"
+
+        private const val ACTION_START = "ACTION_START"
+        private const val ACTION_STOP = "ACTION_STOP"
+
+        private const val EXTRA_ACTIVITY_CLASS = "EXTRA_ACTIVITY_CLASS"
+
+        fun createStartIntent(context: Context, activityClass: Class<*>): Intent {
+            return Intent(context, ActiveRunService::class.java).apply {
+                action = ACTION_START
+                putExtra(EXTRA_ACTIVITY_CLASS, activityClass.name)
+            }
+        }
+
+        fun createStopIntent(context: Context): Intent {
+            return Intent(context, ActiveRunService::class.java).apply {
+                action = ACTION_STOP
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.koto.runique
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -11,6 +12,7 @@ import com.koto.auth.presentation.intro.IntroScreenRoot
 import com.koto.auth.presentation.login.LoginScreenRoot
 import com.koto.auth.presentation.register.RegisterScreenRoot
 import com.koto.run.presentation.active_run.ActiveRunScreenRoot
+import com.koto.run.presentation.active_run.ActiveRunService
 import com.koto.run.presentation.run_overview.RunOverviewScreenRoot
 
 @Composable
@@ -101,7 +103,21 @@ private fun NavGraphBuilder.runGraph(navController: NavHostController) {
                 }
             )
         ) {
-            ActiveRunScreenRoot()
+            val context = LocalContext.current
+            ActiveRunScreenRoot(
+                onServiceToggle = { shouldServiceRun ->
+                    if (shouldServiceRun) {
+                        context.startService(ActiveRunService.createStartIntent(
+                            context = context,
+                            activityClass = MainActivity::class.java
+                        ))
+                    } else {
+                        context.startService(
+                            ActiveRunService.createStopIntent(context)
+                        )
+                    }
+                }
+            )
         }
     }
 }
