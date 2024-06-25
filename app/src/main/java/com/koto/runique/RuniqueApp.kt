@@ -6,6 +6,7 @@ import com.koto.auth.presentation.di.authViewModelModule
 import com.koto.core.data.di.coreDataModule
 import com.koto.core.database.di.databaseModule
 import com.koto.run.location.di.locationModule
+import com.koto.run.network.di.networkModule
 import com.koto.run.presentation.di.runPresentationModule
 import com.koto.runique.di.appModule
 import kotlinx.coroutines.CoroutineScope
@@ -37,6 +38,7 @@ class RuniqueApp : Application() {
                 runPresentationModule,
                 locationModule,
                 databaseModule,
+                networkModule,
             )
         }
     }
