@@ -2,6 +2,7 @@ package com.koto.core.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.koto.core.database.dao.AnalyticsDao
 import com.koto.core.database.dao.RunDao
 import com.koto.core.database.dao.RunPendingSyncDao
 import com.koto.core.database.entity.DeletedRunSyncEntity
@@ -20,4 +21,5 @@ abstract class RunDatabase : RoomDatabase() {
 
     abstract val runDao: RunDao
     abstract val runPendingSyncDao: RunPendingSyncDao
+    abstract val analyticsDao: AnalyticsDao
 }
